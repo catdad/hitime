@@ -26,15 +26,13 @@ describe('[now]', function() {
                 
                 setTimeout(function() {
                     var b = now();
-                    
                     expect(b).to.be.above(a);
                     
                     now.reset();
                     
                     var c = now();
-                    
                     expect(c).to.be.below(a).and.to.be.below(b);
-                    
+
                     next();
                 }, 1);
             }
