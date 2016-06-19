@@ -1,6 +1,8 @@
 /* jshint node: true, mocha: true */
 
 var expect = require('chai').expect;
+var _ = require('lodash');
+
 var now = require('../index.js');
 
 describe('[now]', function() {
@@ -14,6 +16,31 @@ describe('[now]', function() {
             expect(b).to.be.a('number');
             expect(a).to.be.below(b);
             return b;
+        });
+    });
+    
+    describe('#reset', function() {
+        it('resets the absolute 0 time', function(done) {
+            function testReset(next) {
+                var a = now();
+                
+                setTimeout(function() {
+                    var b = now();
+                    
+                    expect(b).to.be.above(a);
+                    
+                    now.reset();
+                    
+                    var c = now();
+                    
+                    expect(c).to.be.below(a).and.to.be.below(b);
+                    
+                    next();
+                }, 1);
+            }
+            
+            // just for funsies, test it a couple of times
+            testReset(testReset(testReset(done)));
         });
     });
 });
@@ -92,9 +119,39 @@ describe('[now:Timer]', function() {
     
     describe('#report', function() {
         it('returns the "times" property of the Timer', function() {
+            var NAME = 'example';
             var timer = now.Timer();
             var val = timer.report();
+            
+            timer.start(NAME);
+            timer.end(NAME);
+            
             expect(val).to.equal(timer.times);
+            expect(val).to.have.property(NAME)
+                .and.to.have.all.keys(['start', 'end', 'duration']);
+            
+            _.forEach(val, function(report) {
+                expect(report).to.be.instanceOf(now.Report);
+            });
+        });
+        
+        it('allows for custom report properties set through the constructor', function() {
+            var NAME = 'example';
+            var timer = now.Timer({
+                cow: 1
+            });
+            var val = timer.report();
+            
+            timer.start(NAME);
+            timer.end(NAME);
+            
+            expect(val).to.equal(timer.times);
+            expect(val).to.have.property(NAME)
+                .and.to.have.all.keys(['start', 'end', 'duration', 'cow']);
+            
+            _.forEach(val, function(report) {
+                expect(report).to.be.instanceOf(now.Report);
+            });
         });
     });
 });

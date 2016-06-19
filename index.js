@@ -26,7 +26,7 @@ function Timer(reportKeys) {
     
     this.reporter = _.isPlainObject(reportKeys) ?
         function TimerReport() {
-            return _.assign(new Report(), reportKeys || {});
+            return _.assign(new Report(), reportKeys);
         } :
         Report;
     
