@@ -36,7 +36,7 @@ npm install -S hitime
 To get a simple high resolution timestamp:
 
 ```javascript
-var hitime = require('hitime);
+var hitime = require('hitime');
 
 var timestamp = hitime();
 ```
