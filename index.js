@@ -54,9 +54,13 @@ Timer.prototype.end = function endTimer(id) {
 };
 
 Timer.prototype.report = function reportTimers() {
-    // I don't have a need to make a copy of this at this time,
-    // and I would like to gain the speed of not copying it.
-    return this.times;
+    // exclude timers that have not been ended
+	return _.reduce(this.times, function(seed, time, idx) {
+		if (time.end !== null) {
+			seed[idx] = time;
+		}
+		return seed;
+	}, {});
 };
 
 module.exports = now;

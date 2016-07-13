@@ -119,12 +119,13 @@ describe('[now:Timer]', function() {
         it('returns the "times" property of the Timer', function() {
             var NAME = 'example';
             var timer = now.Timer();
-            var val = timer.report();
             
             timer.start(NAME);
             timer.end(NAME);
             
-            expect(val).to.equal(timer.times);
+			var val = timer.report();
+            
+            expect(val).to.deep.equal(timer.times);
             expect(val).to.have.property(NAME)
                 .and.to.have.all.keys(['start', 'end', 'duration']);
             
@@ -138,12 +139,13 @@ describe('[now:Timer]', function() {
             var timer = now.Timer({
                 cow: 1
             });
-            var val = timer.report();
             
             timer.start(NAME);
             timer.end(NAME);
             
-            expect(val).to.equal(timer.times);
+			var val = timer.report();
+			
+            expect(val).to.deep.equal(timer.times);
             expect(val).to.have.property(NAME)
                 .and.to.have.all.keys(['start', 'end', 'duration', 'cow']);
             
@@ -151,5 +153,18 @@ describe('[now:Timer]', function() {
                 expect(report).to.be.instanceOf(now.Report);
             });
         });
+		
+		it('filters out reports that have not completed', function() {
+			var timer = now.Timer();
+			timer.start(1);
+			timer.start(2);
+			
+			timer.end(1);
+			
+			var val = timer.report();
+			
+			expect(val).to.have.property(1);
+			expect(val).to.not.have.property(2);
+		});
     });
 });
