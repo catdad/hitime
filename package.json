@@ -1,6 +1,6 @@
 {
   "name": "hitime",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Hi-res timer for Node, wrapped in some pretty helpers",
   "main": "index.js",
   "scripts": {
