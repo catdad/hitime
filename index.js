@@ -23,20 +23,21 @@ function Timer(reportKeys) {
     if (!(this instanceof Timer)) {
         return new Timer(reportKeys);
     }
-    
+
     this.reporter = _.isPlainObject(reportKeys) ?
         function TimerReport() {
             return _.assign(new Report(), reportKeys);
         } :
         Report;
-    
+
     this.times = {};
 }
+
 
 Timer.prototype.start = function startTimer(id) {
     // Create this object will of the props it will need in the future.
     this.times[id] = new this.reporter();
-    
+
     return this;
 };
 
@@ -46,10 +47,10 @@ Timer.prototype.end = function endTimer(id) {
     if (!this.times[id] || this.times[id].end !== null) {
         return this;
     }
-    
+
     this.times[id].end = now();
     this.times[id].duration = this.times[id].end - this.times[id].start;
-    
+
     return this;
 };
 
