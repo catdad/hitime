@@ -168,7 +168,7 @@ describe('[now:Timer]', function() {
 		});
     });
 
-    describe('#get', function() {
+    describe('#duration', function() {
         it('returns the named timer duration', function() {
             var NAME = 'pineapples';
             var timer = now.Timer();
@@ -176,7 +176,7 @@ describe('[now:Timer]', function() {
             timer.start(NAME);
             timer.end(NAME);
 
-            var val = timer.get(NAME);
+            var val = timer.duration(NAME);
 
             expect(val).to.be.a('number').and.to.be.above(0);
             expect(val).to.equal(timer.report()[NAME].end - timer.report()[NAME].start);
@@ -186,7 +186,7 @@ describe('[now:Timer]', function() {
             var NAME = 'pineapples';
             var timer = now.Timer();
 
-            expect(timer.get(NAME)).to.equal(null);
+            expect(timer.duration(NAME)).to.equal(null);
         });
 
         it('returns null if the timer has not ended', function() {
@@ -195,7 +195,7 @@ describe('[now:Timer]', function() {
 
             timer.start(NAME);
 
-            expect(timer.get(NAME)).to.equal(null);
+            expect(timer.duration(NAME)).to.equal(null);
         });
     });
 });

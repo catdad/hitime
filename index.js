@@ -53,7 +53,7 @@ Timer.prototype.end = function endTimer(id) {
     return this;
 };
 
-Timer.prototype.get = function getTimer(id) {
+Timer.prototype.duration = function getTimer(id) {
     // If this timer does not exist, or ig it has not ended,
     // return null
     if (!this.times[id] || this.times[id].end === null) {
