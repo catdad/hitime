@@ -65,19 +65,19 @@ doAsyncWork(function(err) {
     // with high-resolution time, you want
     // to make sure you call this as soon as possible
     timer.end('async work');
-    
+
     // check for an error now... if statements do cost
     // time, you know
-    
+
     timer.start('heavy work');
-    
+
     ...
-    
+
     timer.end('heavy work');
-    
+
     // at some point in the future
     var report = timer.report();
-    
+
     console.log('async work in %s ms', report['async work'].duration);
     console.log('heavy work in %s ms', report['heavy work'].duration);
 });
