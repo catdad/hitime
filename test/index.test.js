@@ -167,4 +167,35 @@ describe('[now:Timer]', function() {
 			expect(val).to.not.have.property(2);
 		});
     });
+
+    describe('#get', function() {
+        it('returns the named timer duration', function() {
+            var NAME = 'pineapples';
+            var timer = now.Timer();
+
+            timer.start(NAME);
+            timer.end(NAME);
+
+            var val = timer.get(NAME);
+
+            expect(val).to.be.a('number').and.to.be.above(0);
+            expect(val).to.equal(timer.report()[NAME].end - timer.report()[NAME].start);
+        });
+
+        it('returns null if the timer does not exist', function() {
+            var NAME = 'pineapples';
+            var timer = now.Timer();
+
+            expect(timer.get(NAME)).to.equal(null);
+        });
+
+        it('returns null if the timer has not ended', function() {
+            var NAME = 'pineapples';
+            var timer = now.Timer();
+
+            timer.start(NAME);
+
+            expect(timer.get(NAME)).to.equal(null);
+        });
+    });
 });

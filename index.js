@@ -33,7 +33,6 @@ function Timer(reportKeys) {
     this.times = {};
 }
 
-
 Timer.prototype.start = function startTimer(id) {
     // Create this object will of the props it will need in the future.
     this.times[id] = new this.reporter();
@@ -54,14 +53,24 @@ Timer.prototype.end = function endTimer(id) {
     return this;
 };
 
+Timer.prototype.get = function getTimer(id) {
+    // If this timer does not exist, or ig it has not ended,
+    // return null
+    if (!this.times[id] || this.times[id].end === null) {
+        return null;
+    }
+
+    return this.times[id].duration;
+};
+
 Timer.prototype.report = function reportTimers() {
     // exclude timers that have not been ended
-	return _.reduce(this.times, function(seed, time, idx) {
-		if (time.end !== null) {
-			seed[idx] = time;
-		}
-		return seed;
-	}, {});
+    return _.reduce(this.times, function(seed, time, idx) {
+        if (time.end !== null) {
+            seed[idx] = time;
+        }
+        return seed;
+    }, {});
 };
 
 module.exports = now;
