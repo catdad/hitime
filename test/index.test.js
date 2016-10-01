@@ -5,16 +5,18 @@ var _ = require('lodash');
 
 var now = require('../index.js');
 
+var atInit = [now(), now(), now(), now()];
+
 describe('[now]', function() {
     it('is a function', function() {
         expect(now).to.be.a('function');
     });
 
     it('returns a number in milliseconds', function() {
-        [now(), now(), now(), now(), now()].reduce(function(a, b) {
+        atInit.concat([now(), now(), now(), now(), now()]).reduce(function(a, b) {
             expect(a).to.be.a('number');
             expect(b).to.be.a('number');
-            expect(a).to.be.below(b);
+            expect(a).to.be.below(b).and.to.be.above(0);
             return b;
         });
     });
