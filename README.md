@@ -83,7 +83,7 @@ doAsyncWork(function(err) {
 });
 ```
 
-Any timers that have ben registered will appear in the report, containing the following values:
+Any timers that have been registered will appear in the report, containing the following values:
 
 - `start`: the relative start time of the timer
 - `end`: the relative end time of the timer
