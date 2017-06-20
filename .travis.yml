@@ -18,3 +18,18 @@ addons:
 after_script:
   - npm run coverage
   - codeclimate-test-reporter < coverage/lcov.info
+
+jobs:
+  include:
+    - stage: npm release
+      node_js: '6.4'
+      script: echo "Deploying to npm ..."
+      after_script: skip
+      deploy:
+        provider: npm
+        email: vatev.1+npm@gmail.com
+        api_key:
+          secure: VsYIzPOG8zjjkdDipSi2Wc24JaNEVXFiK1NViyOrjnKOs3BsZIr6iW1rQFgqFjHixfFySsY6//x+3NNSxR69VHRZZ3wBce1Q6YtjuKz0rGQPD3KI6VHzOCL7Hur+xrf5ZOmlzKDwMWs+/SNdvxfluvJglMfZ7dQIx9L3fzEsYVWzixQwdK/5L6747LddfKYc1d0X37mtaf4f+MWpP76u24MoojHmO+vt8cPXz89+1LnmXZV7J7TsApZxVFGZo2dWRqRgcsJAUgFurlz25HY7vrMOtbXtqgJ3zoNDqPkbiQ6Cp49Dvbq8LXeVb6uQhrTN1tjiZN70Nfw9boF0u4tMu2el0XyXZDqrXBQRIL8xreePmFQng8SeNtrUAeKOJ/ojWBXeOTglIq8HHpdrZsH4nuXFgP2Qjg+cN/NEGzMwb6V7HY1hEB07d27sS39cHZvRNXPL6/vSm4SkCo5D3OpmYG0OMtA8iCGoDFQTJPG3Nu5pPwnEEVk0sSe8Mpri/op2G2xe+2pY1TGWzef5QZDXhYIMywI7eZM+6WwKgT0K4ob+NL9lsUnU+BJeZ2Rx2hhRJ2jyoagXpZ0TnS1xjS0laucQ4hKo7JLpBoM2fQ/t2OwT9OJknPNC7eusQs5/50Rp2qWPY7ybZJFGyqAf2cyoKQy/yMDEtUzOY/6l3XFAmkI=
+        on:
+          tags: true
+          repo: catdad/hitime
