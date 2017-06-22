@@ -23,7 +23,10 @@ describe('[now]', function() {
 
     describe('#reset', function() {
         it('resets the absolute 0 time', function(done) {
-            function testReset(next) {
+            function testReset() {
+                var args = [].slice.call(arguments);
+                var next = args.shift();
+
                 var a = now();
 
                 setTimeout(function() {
@@ -35,12 +38,12 @@ describe('[now]', function() {
                     var c = now();
                     expect(c).to.be.below(a).and.to.be.below(b);
 
-                    next();
+                    next.apply(null, args);
                 }, 1);
             }
 
             // just for funsies, test it a couple of times
-            testReset(testReset(testReset(done)));
+            testReset(testReset, testReset, testReset, done);
         });
     });
 });
