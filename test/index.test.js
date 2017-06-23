@@ -17,6 +17,7 @@ describe('[now]', function() {
             expect(a).to.be.a('number');
             expect(b).to.be.a('number');
             expect(a).to.be.below(b).and.to.be.above(0);
+            
             return b;
         });
     });
@@ -53,6 +54,7 @@ describe('[now:Timer]', function() {
         var timer = new now.Timer();
         expect(timer).to.be.instanceof(now.Timer);
     });
+    
     it('can be called without the new keyword', function() {
         var timer = now.Timer();
         expect(timer).to.be.instanceof(now.Timer);
